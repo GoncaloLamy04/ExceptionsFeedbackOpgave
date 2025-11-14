@@ -8,6 +8,8 @@ import models.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+import static models.Player.findPlayer;
+
 public static void main(String[] args) throws Exception {
     Scanner sc = new Scanner(System.in);
 
@@ -39,20 +41,29 @@ public static void main(String[] args) throws Exception {
 
     System.out.println("\n--- Scenarie 2: Too little credits ---");
     try {
-        expensivecrate.open(player2); //
+        expensivecrate.open(player2);
     } catch (NotEnoughCreditsException e) {
         System.out.println("Error: " + e.getMessage());
     }
 
     System.out.println("\n--- Scenarie 3: Adding negative credits ---");
     try {
-        player1.addCredits(-20); // Has to give error message
+        player1.addCredits(-20);
     } catch (NegativeAmountException e) {
         System.out.println("Error: " + e.getMessage());
     }
 
-
+    System.out.println("\n--- Scenario 4: Open crate for non-existing player ---");
+    try {
+        Player charlie = findPlayer(players, "Charlie");
+        cheapcrate.open(charlie);
+    } catch (PlayerNotFoundException e) {
+        System.out.println("Error: " + e.getMessage());
+    } catch (NotEnoughCreditsException e) {
+        System.out.println("Error: " + e.getMessage());
+    }
 }
+
 
 
 
